@@ -197,6 +197,20 @@
     const noBtn = document.getElementById("noBtn");
     const result = document.getElementById("result");
     const hint = document.getElementById("hint");
+    
+    /* ---------- NO BUTTON TEXTS ---------- */
+    const noTexts = [
+      "Nee",
+      "Weet je het zeker? 🤨",
+      "Echt nee? 🥺",
+      "Kom op nouuu 😭",
+      "Dit doet pijn 💔",
+      "Laatste kans 😈",
+      "Oké maar eigenlijk wil je ja 😏"
+    ];
+
+let noClickCount = 0;
+
 
     /* ---------- CONFETTI ---------- */
     const confettiCanvas = document.getElementById("confettiCanvas");
@@ -287,7 +301,16 @@
       if (d < 140) moveNo(e.clientX, e.clientY);
     });
 
-    noBtn.addEventListener("click", e => e.preventDefault());
+    noBtn.addEventListener("click", e => {
+      e.preventDefault();
+
+      noClickCount++;
+      const index = noClickCount % noTexts.length;
+      noBtn.textContent = noTexts[index];
+
+      growYes(); // ja-knop groeit bij elk "nee" 😈
+    });
+
 
     /* ---------- YES CLICK ---------- */
     yesBtn.addEventListener("click", () => {
