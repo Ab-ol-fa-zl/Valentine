@@ -304,12 +304,23 @@ let noClickCount = 0;
     noBtn.addEventListener("click", e => {
       e.preventDefault();
 
-      noClickCount++;
-      const index = noClickCount % noTexts.length;
-      noBtn.textContent = noTexts[index];
-
-      growYes(); // ja-knop groeit bij elk "nee" 😈
+      // Als we nog teksten over hebben → volgende tekst
+      if (noClickCount < noTexts.length - 1) {
+        noClickCount++;
+        noBtn.textContent = noTexts[noClickCount];
+        growYes();
+      } 
+      // Laatste tekst geweest → knop verdwijnt
+      else {
+        noBtn.style.transition = "opacity .4s ease, transform .4s ease";
+        noBtn.style.opacity = "0";
+        noBtn.style.transform = "scale(0.6)";
+        setTimeout(() => {
+          noBtn.style.display = "none";
+        }, 400);
+      }
     });
+
 
 
     /* ---------- YES CLICK ---------- */
